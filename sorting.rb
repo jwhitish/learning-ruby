@@ -29,3 +29,20 @@ books.sort! { |firstBook, secondBook| firstBook <=> secondBook }
 # Sort your books in descending order, in-place below
 
 books.sort! { |firstBook, secondBook| secondBook <=> firstBook }
+
+
+
+#another sort but in longform
+
+def alphabetize(arr, rev=false)
+  arr.sort!
+  if rev
+    arr.reverse!
+  else
+    return arr
+  end
+end
+
+numbers = [2,4,6,3,1,5]
+
+puts alphabetize(numbers, true)
