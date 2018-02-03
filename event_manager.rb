@@ -3,6 +3,7 @@
 
 require "csv"
 require "google/apis/civicinfo_v2"
+require "erb"
 
 # def clean_zipcode(zipcode)
 #   #check for nil
@@ -31,28 +32,30 @@ def legislators_by_zipcode(zip)
     legislators = civic_info.representative_info_by_address(
                                   address: zip,
                                   levels: 'country',
-                                  roles: ['legislatorUpperBody', 'legislatorLowerBody'])
-    legislators = legislators.officials
-    legislator_names = legislators.map(&:name)
-    legislators_string = legislator_names.join(", ")
+                                  roles: ['legislatorUpperBody', 'legislatorLowerBody']).officials
   rescue
     "You can find your representatives by visiting www.commoncause.org/take-action/find-elected-officials"
   end
+end
+
+def save_thank_you_letters(id, form_letter)
+  Dir.mkdir("output") unless Dir.exists? "output"
+  filename = "output/thanks_#{id}.html"
+  File.open(filename, 'w') {|file| file.puts form_letter}
 end
 
 puts "EventManager Initialized."
 
 contents = CSV.open "event_attendees.csv", headers: true, header_converters: :symbol
 
-template_letter = File.read "form_letter.html"
+template_letter = File.read "form_letter.erb"
+erb_template = ERB.new template_letter
 
 contents.each { |row|
+  id = row[0]
   name = row[:first_name]
   zipcode = clean_zipcode(row[:zipcode])
   legislators = legislators_by_zipcode(zipcode)
-  personal_letter = template_letter.gsub('FIRST_NAME', name)
-  personal_letter.gsub!('LEGISLATORS', legislators)
-
-  #puts "#{name} #{zipcode} #{legislators}"
-  puts personal_letter
+  form_letter = erb_template.result(binding)
+  save_thank_you_letters(id,form_letter)
 }
