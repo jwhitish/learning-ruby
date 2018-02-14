@@ -111,12 +111,37 @@ class Dragon
 end
 
 pet = Dragon.new 'Norbert'
-pet.feed
-pet.toss
-pet.walk
-pet.putToBed
-pet.rock
-pet.putToBed
-pet.putToBed
-pet.putToBed
-pet.putToBed
+# pet.feed
+# pet.toss
+# pet.walk
+# pet.putToBed
+# pet.rock
+# pet.putToBed
+# pet.putToBed
+# pet.putToBed
+# pet.putToBed
+
+puts "What would you like to do with your new dragon?\n
+Options available:\n
+1) Feed\n
+2) Toss\n
+3) Walk\n
+4) Put to bed\n
+Enter the number of your selection: "
+
+userCommand = gets.chomp
+
+until @stuffInBelly == 0
+  case userCommand
+  when '1'
+    pet.feed
+  when '2'
+    pet.toss
+  when '3'
+    pet.walk
+  when '4'
+    pet.putToBed
+  else
+    puts "Please enter a number 1-4."
+  end
+end
