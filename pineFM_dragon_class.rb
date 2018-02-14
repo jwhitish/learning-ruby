@@ -1,4 +1,13 @@
+module Promptable
+  def prompt(message = 'What would you like to do?', symbol = ':> ')
+    puts message
+    print symbol
+    gets.chomp
+  end
+end
+
 class Dragon
+  attr_reader :stuffInBelly
 
   def initialize name
     @name = name
@@ -110,38 +119,31 @@ class Dragon
 
 end
 
+public
+
 pet = Dragon.new 'Norbert'
-# pet.feed
-# pet.toss
-# pet.walk
-# pet.putToBed
-# pet.rock
-# pet.putToBed
-# pet.putToBed
-# pet.putToBed
-# pet.putToBed
 
-puts "What would you like to do with your new dragon?\n
-Options available:\n
-1) Feed\n
-2) Toss\n
-3) Walk\n
-4) Put to bed\n
-Enter the number of your selection: "
-
-userCommand = gets.chomp
-
-until @stuffInBelly == 0
-  case userCommand
-  when '1'
-    pet.feed
-  when '2'
-    pet.toss
-  when '3'
-    pet.walk
-  when '4'
-    pet.putToBed
-  else
-    puts "Please enter a number 1-4."
+#run code
+if __FILE__ == $PROGRAM_NAME
+  include Promptable
+  while pet.stuffInBelly > -1
+    userCommand = prompt("What would you like to do with your new dragon?\n
+      Options available:\n
+      1) Feed\n
+      2) Toss\n
+      3) Walk\n
+      4) Put to bed\n
+      Enter the number of your selection: ")
+      if userCommand == '1'
+        pet.feed
+      elsif userCommand == '2'
+        pet.toss
+      elsif userCommand == '3'
+        pet.walk
+      elsif userCommand == '4'
+        pet.putToBed
+      else
+        puts "Please enter a number 1-4."
+      end
   end
 end
