@@ -1,4 +1,5 @@
 #my commands for the bloc.io ruby warrior game
+#completed through level 5, currently on 6
 class Player
   def play_turn(warrior)
     @health = warrior.health
