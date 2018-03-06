@@ -1,6 +1,7 @@
 #my commands for the bloc.io ruby warrior game
 #completed through level 5, currently on 6
 class Player
+
   def play_turn(warrior)
     @health = warrior.health
 
@@ -30,6 +31,7 @@ class Player
     else
       return false
     end
+    return true
   end
 
 
@@ -39,7 +41,7 @@ class Player
     else
       if warrior.feel.empty?
         if @health < 20
-          checkHealth
+          checkHealth(warrior)
         else
           warrior.walk!
         end
@@ -49,7 +51,7 @@ class Player
     end
   end
 
-  def assessAndGo
+  def assessAndGo(warrior)
     if warrior.feel.empty?
       warrior.walk!
     else
@@ -57,9 +59,9 @@ class Player
     end
   end
 
-  def checkHealth
+  def checkHealth(warrior)
     if @health < @endhealth
-      assessAndGo
+      assessAndGo(warrior)
     else
       warrior.rest!
     end
