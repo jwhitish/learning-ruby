@@ -20,7 +20,7 @@ class Player
       end
       @endhealth = warrior.health
     end
-  end
+  end 
 
   def captives_rescued?
     if @captives_rescued.nil?
