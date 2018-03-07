@@ -1,24 +1,28 @@
 #my commands for the bloc.io ruby warrior game
-#completed through level 5, currently on 6
+#completed through level 6, currently on 7
 class Player
 
   def play_turn(warrior)
     @health = warrior.health
 
-    if captives_rescued? == false
-      if warrior.feel(:backward).captive?
-        warrior.rescue!(:backward)
-        @captives_rescued += 1
-      else
-        warrior.walk!(:backward)
-      end
+    if warrior.feel.wall?
+      warrior.pivot!
     else
-      if warrior.feel.captive?
-        warrior.rescue!
-      else
-        forward(warrior)
-      end
-      @endhealth = warrior.health
+      # if captives_rescued? == false
+      #   if warrior.feel(:backward).captive?
+      #     warrior.rescue!(:backward)
+      #     @captives_rescued += 1
+      #   else
+      #     warrior.walk!(:backward)
+      #   end
+      # else
+      #   if warrior.feel.captive?
+      #     warrior.rescue!
+      #   else
+          forward(warrior)
+        #end
+        @endhealth = warrior.health
+      #end
     end
   end
 

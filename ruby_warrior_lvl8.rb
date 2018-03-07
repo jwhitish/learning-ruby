@@ -1,24 +1,28 @@
 #my commands for the bloc.io ruby warrior game
-#completed through level 5, currently on 6
+#completed through level 7, currently on 8
 class Player
 
   def play_turn(warrior)
     @health = warrior.health
 
-    if captives_rescued? == false
-      if warrior.feel(:backward).captive?
-        warrior.rescue!(:backward)
-        @captives_rescued += 1
-      else
-        warrior.walk!(:backward)
-      end
+    if warrior.feel.wall?
+      warrior.pivot!
     else
-      if warrior.feel.captive?
-        warrior.rescue!
-      else
-        forward(warrior)
-      end
-      @endhealth = warrior.health
+      # if captives_rescued? == false
+      #   if warrior.feel(:backward).captive?
+      #     warrior.rescue!(:backward)
+      #     @captives_rescued += 1
+      #   else
+      #     warrior.walk!(:backward)
+      #   end
+      # else
+      #   if warrior.feel.captive?
+      #     warrior.rescue!
+      #   else
+          forward(warrior)
+        #end
+        @endhealth = warrior.health
+      #end
     end
   end
 
@@ -41,7 +45,7 @@ class Player
     else
       if warrior.feel.empty?
         if @health < 20
-          beingAttacked(warrior)
+          beingAttacked?(warrior)
         else
           warrior.walk!
         end
@@ -53,10 +57,14 @@ class Player
 
   def assessAndGo(warrior)
     if warrior.health < 15
-      if warrior.feel(:backward).wall?
-        warrior.rest!
+      if warrior.look.any?
+        warrior.shoot!
       else
-        warrior.walk!(:backward)
+        if warrior.feel(:backward).wall?
+          warrior.rest!
+        else
+          warrior.walk!(:backward)
+        end
       end
     else
       if warrior.feel.empty?
@@ -67,11 +75,15 @@ class Player
     end
   end
 
-  def beingAttacked(warrior)
+  def beingAttacked?(warrior)
     if @health < @endhealth
       assessAndGo(warrior)
     else
-      warrior.rest!
+      if warrior.look[1].enemy?
+        warrior.shoot!
+      else
+        warrior.rest!
+      end
     end
   end
 
