@@ -1,7 +1,7 @@
-#take a string and a key
-#shift string by key numbers
-#return shifted string
-#wrap from z-a
+#take a string and a key [done]
+#shift string by key numbers [done]
+#return shifted string [done]
+#wrap from z-a [done]
 #keep case instact
 
 #chars splits string into array of characters
@@ -10,15 +10,15 @@
 #use map the ascii values to their characters and join the elements back into a string
 
 def caesar_cipher(string, key = 0)
-  ascii = string.chars.map(&:ord)
+  ascii = string.downcase.chars.map(&:ord)
   shifted = ascii.map do |c|
-    if c == 32
+    if c == 32 #check if space
       c = 32
     else
-      if (c + key.to_i) < 123
+      if (c + key.to_i) < 123 #check if < lowercase z
         c + key.to_i
       else
-        (c + key.to_i) - 26
+        (c + key.to_i) - 26 #wraps to beg
       end
     end
   end
@@ -27,7 +27,7 @@ def caesar_cipher(string, key = 0)
 end
 
 def decrypt(string, key = 0)
-  ascii = string.chars.map(&:ord)
+  ascii = string.downcase.chars.map(&:ord)
   shifted = ascii.map do |c|
     if c == 32
       c = 32
@@ -43,5 +43,5 @@ def decrypt(string, key = 0)
   puts shifted_char
 end
 
-caesar_cipher("zoo and", 5)
-#decrypt("ett", 5)
+caesar_cipher("Zoo and", 5)
+decrypt("ett fsi", 5)
