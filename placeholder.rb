@@ -1,2 +1,1 @@
-#working on regex lesson of odin project
-#still working on regex
+#reading the extra resources on the adv ruby building blocks lesson of TOP
