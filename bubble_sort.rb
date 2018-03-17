@@ -5,21 +5,26 @@ def bubble_sort(array)
   #if left is bigger than right, swap places
   #do this until no swaps needed
   sorted = false
+  swaps = 0
+
   while sorted == false
     array.each_index do |index|
       if index < (array.length - 1)
         if array[index] > array[index + 1]
           array[index], array[index + 1] = array[index + 1], array[index]
+          swaps += 1
         end
       else
-        #fix this shit
-        if array == array.sort
-          sorted = true
-        end
+        sorted = true if swaps == 0
+        swaps = 0 #reset for next iteration
       end
     end
   end
   puts array.join(",")
 end
 
-bubble_sort(arry)
+#bubble_sort(arry)
+
+def bubble_sort_by(block)
+
+end
