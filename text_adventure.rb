@@ -1,5 +1,5 @@
 class Dungeon
-  attr_accessor :player
+  attr_accessor :player, :room
 
   def initialize(player_name)
     @player = Player.new(player_name)
@@ -97,7 +97,8 @@ if __FILE__ == $PROGRAM_NAME
 
   #Add rooms to the dungeon
   my_dungeon.add_room(:largecave, "Large Cave", "a large cavernous cave", { :west => :smallcave })
-  my_dungeon.add_room(:smallcave, "Small Cave", "a small, claustrophobic cave", { :east => :largecave })
+  my_dungeon.add_room(:smallcave, "Small Cave", "a small, claustrophobic cave", { :north => :longcorridor, :east => :largecave })
+  my_dungeon.add_room(:longcorridor, "Long Corridor", "a long, dark corridor", {:south => :smallcave })
 
   #Start the dungeon by placing the player in the large cave
   my_dungeon.start(:largecave)
@@ -110,7 +111,6 @@ if __FILE__ == $PROGRAM_NAME
         my_dungeon.go(:north)
       rescue
         puts "It's a blank wall..."
-
       end
     when '2'
       begin
@@ -136,4 +136,7 @@ if __FILE__ == $PROGRAM_NAME
   end
 
 end
-#try turning the preceding dungeon code into a truly interactive program by creating a loop that uses the gets method to retrieve instructions from the player and then to “go” wherever the player determines. You can use chomp to strip off the newline characters from the incoming text, and to_sym to convert strings into symbols for the go method.
+
+
+#currently stuck on checking if a move is valid before executing it...
+#location is returning nil.... maybe need to set a global location variable to hold the player's current location?
