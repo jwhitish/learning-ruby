@@ -29,7 +29,7 @@ class Dungeon
 
   def go(direction)
     puts "You go " + direction.to_s
-    @player.location = find_room_in_direction(direcion)
+    @player.location = find_room_in_direction(direction)
     show_current_description
   end
 
@@ -38,6 +38,10 @@ class Dungeon
 
     def initialize(name)
       @name = name
+    end
+
+    def location
+      @location
     end
   end
 
@@ -87,7 +91,9 @@ if __FILE__ == $PROGRAM_NAME
   include Promptable
 
   #Create the main dungeon object
-  my_dungeon = Dungeon.new(prompt("What is your name?"))
+  player = prompt("What is your name?")
+  my_dungeon = Dungeon.new(player)
+  puts "Welcome to the game #{player}. Let's begin."
 
   #Add rooms to the dungeon
   my_dungeon.add_room(:largecave, "Large Cave", "a large cavernous cave", { :west => :smallcave })
@@ -95,6 +101,39 @@ if __FILE__ == $PROGRAM_NAME
 
   #Start the dungeon by placing the player in the large cave
   my_dungeon.start(:largecave)
+
+#put the while loop and menu here
+  until ['q'].include?(user_input = prompt(show).downcase)
+    case user_input
+    when '1'
+      begin
+        my_dungeon.go(:north)
+      rescue
+        puts "It's a blank wall..."
+
+      end
+    when '2'
+      begin
+        my_dungeon.go(:east)
+      rescue
+        puts "It's a blank wall..."
+      end
+    when '3'
+      begin
+        my_dungeon.go(:south)
+      rescue
+        puts "It's a blank wall..."
+      end
+    when '4'
+      begin
+        my_dungeon.go(:west)
+      rescue
+        puts "It's a blank wall..."
+      end
+    else
+      puts 'That is not an option, try again'
+    end
+  end
 
 end
 #try turning the preceding dungeon code into a truly interactive program by creating a loop that uses the gets method to retrieve instructions from the player and then to “go” wherever the player determines. You can use chomp to strip off the newline characters from the incoming text, and to_sym to convert strings into symbols for the go method.
