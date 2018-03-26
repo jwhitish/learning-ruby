@@ -109,8 +109,8 @@ if __FILE__ == $PROGRAM_NAME
     when '1'
       begin
         my_dungeon.go(:north)
-      rescue
-        puts "It's a blank wall..."
+      rescue => e
+        puts e.class
       end
     when '2'
       begin
