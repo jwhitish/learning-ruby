@@ -29,7 +29,11 @@ class Dungeon
 
   def go(direction)
     puts "You go " + direction.to_s
-    @player.location = find_room_in_direction(direction)
+    if find_room_in_direction(direction) == nil
+      puts "It's a blank wall..."
+    else
+      @player.location = find_room_in_direction(direction)
+    end
     show_current_description
   end
 
@@ -98,7 +102,7 @@ if __FILE__ == $PROGRAM_NAME
   #Add rooms to the dungeon
   my_dungeon.add_room(:largecave, "Large Cave", "a large cavernous cave", { :west => :smallcave })
   my_dungeon.add_room(:smallcave, "Small Cave", "a small, claustrophobic cave", { :north => :longcorridor, :east => :largecave })
-  my_dungeon.add_room(:longcorridor, "Long Corridor", "a long, dark corridor", {:south => :smallcave })
+  my_dungeon.add_room(:longcorridor, "Long Corridor", "a long, dark corridor running East to West", {:south => :smallcave })
 
   #Start the dungeon by placing the player in the large cave
   my_dungeon.start(:largecave)
@@ -107,36 +111,16 @@ if __FILE__ == $PROGRAM_NAME
   until ['q'].include?(user_input = prompt(show).downcase)
     case user_input
     when '1'
-      begin
         my_dungeon.go(:north)
-      rescue => e
-        puts e.class
-      end
     when '2'
-      begin
         my_dungeon.go(:east)
-      rescue
-        puts "It's a blank wall..."
-      end
     when '3'
-      begin
         my_dungeon.go(:south)
-      rescue
-        puts "It's a blank wall..."
-      end
     when '4'
-      begin
         my_dungeon.go(:west)
-      rescue
-        puts "It's a blank wall..."
-      end
     else
       puts 'That is not an option, try again'
     end
   end
 
 end
-
-
-#currently stuck on checking if a move is valid before executing it...
-#location is returning nil.... maybe need to set a global location variable to hold the player's current location?
