@@ -1,3 +1,5 @@
+#!/usr/bin/ruby
+
 class Dungeon
   attr_accessor :player, :room
 
@@ -30,7 +32,7 @@ class Dungeon
   def go(direction)
     puts "You go " + direction.to_s
     if find_room_in_direction(direction) == nil
-      puts "It's a blank wall..."
+      puts "\nIt's a blank wall... \n\n"
     else
       @player.location = find_room_in_direction(direction)
     end
@@ -76,7 +78,7 @@ end
 
 module Menu
   def menu
-    "What would you like to do?
+    "\nWhat would you like to do?
     [1] Walk North
     [2] Walk East
     [3] Walk South
@@ -97,7 +99,7 @@ if __FILE__ == $PROGRAM_NAME
   #Create the main dungeon object
   player = prompt("What is your name?")
   my_dungeon = Dungeon.new(player)
-  puts "Welcome to the game #{player}. Let's begin."
+  puts "Welcome to the game #{player}. Let's begin. \n\n"
 
   #Add rooms to the dungeon
   my_dungeon.add_room(:largecave, "Large Cave", "a large cavernous cave", { :west => :smallcave })
@@ -124,3 +126,6 @@ if __FILE__ == $PROGRAM_NAME
   end
 
 end
+
+
+#would like to aesthetically clean up the output next for easier readability
