@@ -1,5 +1,7 @@
 #!/usr/bin/ruby
 
+#Copy of the game 'Mastermind' as an assignment for The Odin Project
+
 module Promptable
   def prompt(message = 'Enter your guess:', symbol = ':> ')
     puts message
