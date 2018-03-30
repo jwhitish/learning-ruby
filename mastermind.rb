@@ -28,7 +28,7 @@ class Game
     for i in num_code
       color_code.push(colors[i])
     end
-    #puts "\nSecret Code:" + color_code.join(" ")
+    puts "\nSecret Code:" + color_code.join(" ")
     @code = color_code
   end
 
@@ -40,12 +40,13 @@ class Game
       unless @guess.include?("q")
         @guess_arry = @guess.split(",")
         puts @guess_arry.join(" ")
-        #check for position
+        #check for position and color
         checkCode(@guess_arry)
-        puts "For turn #{@turn.to_s}, #{@color_match.to_s} colors are correct and #{} positions are correct."
+        puts "For turn #{@turn.to_s}, #{@color_match.to_s} colors are correct and #{@pos_match} positions are correct."
         @turn += 1
       end
     end
+    puts "Game Over: Out of turns!"
   end
 
   def checkCode(guess)
@@ -53,11 +54,8 @@ class Game
       abort("You win!")
     else
       #check for color and position
-      guess.each do |i|
-        if @code.include?(i)
-          @color_match += 1
-        end
-      end
+      @color_match = guess.count { |el| code.include?(el) }
+      @pos_match = guess.zip(code).count { |a, b| a == b }
     end
   end
 
