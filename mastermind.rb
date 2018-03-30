@@ -22,52 +22,56 @@ class Game
     num_code = []
     colors = ["R", "O", "Y", "G", "B", "I", "V"]
     color_code = []
-    4.times{num_code.push(rand(8))}
+    4.times{num_code.push(rand(7))}
     for i in num_code
       color_code.push(colors[i])
     end
-    #puts color_code.join(" ")
+    #puts "\nSecret Code:" + color_code.join(" ")
     @code = color_code
   end
 
   def play
-    @turn = 0
-    @guess = prompt("Turn #{@turn.to_s}. Enter your guess:")
-    @guess_arry = []
+    @turn = 1
+    while @turn < 13
+      @guess = prompt("Turn #{@turn.to_s}. Enter your guess:")
+      @guess_arry = []
       unless @guess.include?("q")
         @guess_arry = @guess.split(",")
         puts @guess_arry.join(" ")
-
-      #check for color and position
-
-      #output feedback (and guess?)
-      puts "For turn #{@turn.to_s}, #{} colors are correct and #{} positions are correct."
-      #loop until solved, 12 turns are up, or user quits
-
-      @turn += 1
+        #check for position
+        checkCode(@guess_arry)
+        puts "For turn #{@turn.to_s}, #{@color_match.to_s} colors are correct and #{} positions are correct."
+        @turn += 1
       end
+    end
   end
 
   def checkCode(guess)
     if @code == guess
-      puts "You win!"
+      abort("You win!")
     else
       #check for color and position
+      guess.each do |i|
+        if @code.include?(i)
+          @color_match += 1
+        end
+      end
     end
   end
+
 end
 
 
 
-newgame = Game.new
-puts "The computer has selected a secret code of four colors, you have 12 guesses to find the correct combination."
-sleep(0.5)
-puts "Each turn the computer will tell you how many colors match the code and how many are in the correct position."
-sleep(0.5)
-puts "Choices are: R, O, Y, G, B, I , V"
-sleep(0.5)
-puts "Enter choices as four capital letters separated by commas - no spaces. Ex: B,G,Y,V"
-sleep(0.5)
-puts "To exit the game at any time, press 'q'."
-sleep(0.5)
-newgame.play
+  newgame = Game.new
+  puts "The computer has selected a secret code of four colors, you have 12 guesses to find the correct combination."
+  sleep(0.5)
+  puts "Each turn the computer will tell you how many colors match the code and how many are in the correct position."
+  sleep(0.5)
+  puts "Choices are: R, O, Y, G, B, I , V"
+  sleep(0.5)
+  puts "Enter choices as four capital letters separated by commas - no spaces. Ex: B,G,Y,V"
+  sleep(0.5)
+  puts "To exit the game at any time, press 'q'."
+  sleep(0.5)
+  newgame.play
