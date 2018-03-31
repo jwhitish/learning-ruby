@@ -55,21 +55,19 @@ class Game
   def codemaker
     @player = "Computer"
     #get the code from the user
-    @secretcode = prompt("Enter your secret code:\n").split
+    @secretcode = prompt("Enter your secret code:\n").split(",")
     puts "Code entered is:" + @secretcode.join(" ")
     @turn = 11
     while @turn < 13
       guessSecretCode
-      checkCode(@aiguess)
-      puts "For turn #{@turn.to_s}: The computer guessed #{@aiguess}. #{@color_match.to_s} colors are correct and #{@pos_match} positions are correct."
+      puts "For turn #{@turn.to_s}: The computer guessed #{@aiguess.join}. #{@color_match.to_s} colors are correct and #{@pos_match} positions are correct."
       @turn += 1
       sleep(1)
     end
     puts "Game Over: Computer is out of turns!"
   end
 
-  def guessSecretCode #creates an array of 4 colors
-    #computer guesses random colors
+  def guessSecretCode #ai for codemaker mode
     #keep the colors that match exactly
     num_code = []
     colors = ["R", "O", "Y", "G", "B", "I", "V"]
@@ -78,11 +76,22 @@ class Game
     for i in num_code
       color_code.push(colors[i])
     end
-    #puts "\nDebug- Comp guess:" + color_code.join(",")
-    @aiguess = color_code.join(",")
+    @aiguess = color_code#.join(",")
+    aiCheckCode(@aiguess)
   end
 
-  def checkCode(guess)
+  def aiCheckCode(guess) #checks the guess for codemaker mode
+    if @secretcode == guess
+      abort("#{@player} Wins!")
+    else
+      #check for color and position
+      puts "Debug:" + guess.join
+      @color_match = guess.count { |el| @secretcode.include?(el) }
+      @pos_match = guess.zip(@secretcode).count { |a, b| a == b }
+    end
+  end
+
+  def checkCode(guess) #checks the guess for codebreaker mode
     if @code == guess
       abort("#{@player} Wins!")
     else
