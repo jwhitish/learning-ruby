@@ -28,7 +28,7 @@ class Game
     for i in num_code
       color_code.push(colors[i])
     end
-    puts "\nSecret Code:" + color_code.join(" ")
+    #puts "\nSecret Code:" + color_code.join(" ")
     @code = color_code
   end
 
@@ -37,7 +37,9 @@ class Game
     while @turn < 13
       @guess = prompt("Turn #{@turn.to_s}. Enter your guess:")
       @guess_arry = []
-      unless @guess.include?("q")
+      if @guess.include?("q")
+        abort("Goodbye.")
+      else
         @guess_arry = @guess.split(",")
         puts @guess_arry.join(" ")
         #check for position and color
@@ -68,7 +70,7 @@ end
   sleep(0.5)
   puts "Each turn the computer will tell you how many colors match the code and how many are in the correct position."
   sleep(0.5)
-  puts "Choices are: R, O, Y, G, B, I , V"
+  puts "Choices are: R, O, Y, G, B, I ,V"
   sleep(0.5)
   puts "Enter choices as four capital letters separated by commas - no spaces. Ex: B,G,Y,V"
   sleep(0.5)
