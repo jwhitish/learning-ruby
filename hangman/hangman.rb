@@ -6,9 +6,9 @@ class Hangman
     #load the dictionary and select a random word between 5-12 char long
     word_file = File.open('5desk.txt', 'r') { |file| file.read }
     valid_words = word_file.split.select { |word| word.length.between?(5,12) }
-    @word = valid_words[rand(valid_words.size)].downcase.split(' ')
+    @word = valid_words[rand(valid_words.size)].scan /\w/
     @guesses = @word.join.length
-    puts "__Debug__: the word is- " + @word.to_s
+    puts "__Debug__: the word is- " + @word.join
     puts "__Debug__: guesses are- " + @guesses.to_s
     createGameBoard
   end
@@ -21,7 +21,7 @@ class Hangman
 
   def createGameBoard
     @game_board = []
-    @word.join.length.times { @game_board.push("_") }
+    @word.length.times { @game_board.push("_") }
     puts "__Debug__: game board-" + @game_board.join(" ")
   end
 
@@ -34,13 +34,16 @@ class Hangman
       already_guessed = []
       puts "Letters already guessed: " + already_guessed.join(",")
       puts "Word: " + @game_board.join(" ")
-      @guess = prompt.downcase!
-      if @word.include?(@guess)
-        #find the index in @word
-        #replace that index in @game_board with the guess
-      else
-        already_guessed.push(@guess)
+      @guess = prompt.downcase
+#recreate this functionality. Returning only the first index. Use a counter variable that increments to manually assign an index.
+      @word.each do |letter|
+        if letter == @guess
+          @game_board[@word.index(letter)] = letter
+        else
+          already_guessed.push(@guess)
+        end
       end
+      puts "__Debug__: " + @game_board.join(" ")
       @guesses -= 1
     end
   end
