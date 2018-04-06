@@ -6,10 +6,10 @@ class Hangman
     #load the dictionary and select a random word between 5-12 char long
     word_file = File.open('5desk.txt', 'r') { |file| file.read }
     valid_words = word_file.split.select { |word| word.length.between?(5,12) }
-    @word = valid_words[rand(valid_words.size)].scan /\w/
-    @guesses = @word.join.length
+    @word = valid_words[rand(valid_words.size)].scan(/\w/)
+    @guesses = 6
+    @already_guessed = []
     puts "__Debug__: the word is- " + @word.join
-    puts "__Debug__: guesses are- " + @guesses.to_s
     createGameBoard
   end
 
@@ -22,48 +22,89 @@ class Hangman
   def createGameBoard
     @game_board = []
     @word.length.times { @game_board.push("_") }
-    puts "__Debug__: game board-" + @game_board.join(" ")
   end
 
   def turn
     if @guesses == 0
+      puts "The word was: " + @word.join.to_s
       abort("Out of guesses, Game Over!")
     else
-      #check for winner
-      puts "You have #{@guesses} guesses remaining."
-      already_guessed = []
-      puts "Letters already guessed: " + already_guessed.join(",")
+      puts "You have #{@guesses} misses remaining."
+      puts "Misses: " + @already_guessed.join(",")
       puts "Word: " + @game_board.join(" ")
       @guess = prompt.downcase
-#recreate this functionality. Returning only the first index. Use a counter variable that increments to manually assign an index.
-      @word.each do |letter|
-        if letter == @guess
-          @game_board[@word.index(letter)] = letter
-        else
-          already_guessed.push(@guess)
+      if @word.include?(@guess)
+        index = 0
+        @word.each do |letter| #still not downcasing
+          if letter == @guess
+            @game_board[index] = letter
+            index += 1
+          else
+            index += 1
+          end
         end
+      else
+        @already_guessed.push(@guess)
+        @guesses -= 1
       end
-      puts "__Debug__: " + @game_board.join(" ")
-      @guesses -= 1
+      winner? #check for winner
+    end
+  end
+
+  def winner?
+    if @game_board == @word
+      puts "The word was: " + @game_board.join.to_s
+      abort("You win!")
     end
   end
 
   def menu
-    menu_choice = prompt("Game Menu:\n1) Start a New Game\n2) Load a Saved Game\n3) Save Current Game\n4) Quit")
+    menu_choice = prompt("Game Menu:\n1) Instructions\n2) Start a New Game\n3) Load a Saved Game\n4) Save Current Game\n5) Quit")
     case menu_choice
       when "1"
-        #start a new game
+        #puts the instructions
       when "2"
-        #load a saved game
+        self.playGame
       when "3"
-        #save the current game
+        #load a saved game
       when "4"
+        #save the current game
+      when "5"
         abort("Goodbye!")
     end
+  end
+
+  def welcome
+    #puts the welcome and instructions
+    #enter something for the menu
+    puts "Welcome to Hangman!"
+    self.menu
+  end
+
+  def instructions
+    #puts the instructions
+  end
+
+  def playGame
+    #until winner or out of turns, execute 'turn'
+    until self.winner? || @guesses < 0
+      self.turn
+    end
+  end
+
+  def saveGame
+    #prompt for file name
+    #save to file
+    #exit the game
+  end
+
+  def loadGame
+    #prompt for file name
+    #load the game from file
+    #run the game
   end
 
 end
 
 mygame = Hangman.new
-#mygame.menu
-mygame.turn
+mygame.welcome
