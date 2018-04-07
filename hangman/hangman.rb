@@ -1,9 +1,9 @@
 #!/usr/bin/ruby
 
 class Hangman
+  require "yaml"
 
   def initialize
-    #load the dictionary and select a random word between 5-12 char long
     word_file = File.open('5desk.txt', 'r') { |file| file.read }
     valid_words = word_file.split.select { |word| word.length.between?(5,12) }
     @word = valid_words[rand(valid_words.size)].scan(/\w/)
@@ -33,22 +33,33 @@ class Hangman
       puts "Misses: " + @already_guessed.join(",")
       puts "Word: " + @game_board.join(" ")
       @guess = prompt.downcase
-      if @word.include?(@guess)
-        index = 0
-        @word.each do |letter| #still not downcasing
-          if letter == @guess
-            @game_board[index] = letter
-            index += 1
-          else
-            index += 1
-          end
-        end
+      if @guess == "menu"
+        self.menu
+      elsif @guess == "hint"
+        self.hint
       else
-        @already_guessed.push(@guess)
-        @guesses -= 1
+        if @word.include?(@guess)
+          index = 0
+          @word.each do |letter| #still not downcasing
+            if letter == @guess
+              @game_board[index] = letter
+              index += 1
+            else
+              index += 1
+            end
+          end
+        else
+          @already_guessed.push(@guess)
+          @guesses -= 1
+        end
       end
-      winner? #check for winner
+      winner?
     end
+  end
+
+  def hint
+    hint = @word[rand(@word.length - 1)]
+    puts hint
   end
 
   def winner?
@@ -59,52 +70,74 @@ class Hangman
   end
 
   def menu
-    menu_choice = prompt("Game Menu:\n1) Instructions\n2) Start a New Game\n3) Load a Saved Game\n4) Save Current Game\n5) Quit")
+    menu_choice = prompt("Game Menu:\n1) Instructions\n2) Start a New Game\n3) Load a Saved Game\n4) Save Current Game\nq) Quit")
     case menu_choice
       when "1"
-        #puts the instructions
+        self.instructions
       when "2"
-        self.playGame
+        self.newGame
       when "3"
-        #load a saved game
+        self.loadGame
       when "4"
-        #save the current game
-      when "5"
+        self.saveGame
+      when "q"
         abort("Goodbye!")
     end
   end
 
+  def newGame
+    newgame = Hangman.new
+    newgame.playGame
+  end
+
   def welcome
-    #puts the welcome and instructions
-    #enter something for the menu
-    puts "Welcome to Hangman!"
+    puts "Welcome to Hangman!\n\n"
     self.menu
   end
 
   def instructions
-    #puts the instructions
+    puts "Instructions: "
+    puts "The computer will select a random word between 5 and 12 characters long. You will be shown the number of characters on a blank 'game board' and will guess the word one letter at a time. Each time you guess an incorrect letter, one 'miss' will be deducted from your balance until you reach zero.\n\nEach turn, you will be shown any incorrectly guessed letters, the 'game board' with all correct letters, and the 'misses' remaining. If you run out of 'misses', or if you guess the word correctly, the game is over.\n\nAt any time you can type 'menu' to return to the game menu.\n\n"
+    self.menu
   end
 
   def playGame
-    #until winner or out of turns, execute 'turn'
     until self.winner? || @guesses < 0
       self.turn
     end
   end
 
-  def saveGame
-    #prompt for file name
-    #save to file
-    #exit the game
+  def saveGame #figure out saving issue
+    fileName = prompt("Name your saved game:").downcase + ".txt"
+    fileName = fileName.gsub(/\s/, "_")
+    save_file = File.new("#{fileName}", "w")
+    save_file.puts YAML::dump(self)
+    save_file.close
+    puts "\n\nGame Saved!\n\n"
+    self.menu
+  end
+
+  def displayGames
+    #show list of saved games
   end
 
   def loadGame
-    #prompt for file name
-    #load the game from file
+    fileName = prompt("Enter the name of your saved game:").downcase + ".yml"
+    fileName = fileName.gsub(/\s/, "_")
+    if File.exist?("#{fileName}")
+      openGame = YAML.load_file("#{fileName}", "r+")
+    end
+    puts openGame
     #run the game
+    # add a rescue for Errno::ENOENT
   end
 
 end
 
-mygame = Hangman.new
-mygame.welcome
+newgame = Hangman.new
+newgame.welcome
+
+#other todo - make end of game display the menu instead of exiting
+#fix file paths. put saved games in saved folder, script in app folder
+#display saved games
+#rescue clause for load game

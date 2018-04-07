@@ -1,0 +1,15 @@
+--- !ruby/object:Hangman
+word:
+- A
+- n
+- g
+- u
+- s
+guesses: 6
+already_guessed: []
+game_board:
+- _
+- _
+- _
+- _
+- _
