@@ -1,0 +1,25 @@
+---
+:word:
+- m
+- u
+- t
+- i
+- l
+- a
+- t
+- e
+- d
+:guesses: 4
+:already_guessed:
+- x
+- g
+:game_board:
+- _
+- _
+- t
+- _
+- _
+- _
+- t
+- _
+- d

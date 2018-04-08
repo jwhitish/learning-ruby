@@ -1,0 +1,16 @@
+---
+:word:
+- v
+- a
+- l
+- u
+- e
+:guesses: 5
+:already_guessed:
+- g
+:game_board:
+- v
+- a
+- _
+- _
+- _
