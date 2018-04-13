@@ -40,23 +40,46 @@ class LinkedList
   end
 
   def at(index)
-    #at(index) returns the node at the given index
+    @list[index]
   end
 
   def pop
-    @list.delete_at(-1)
+    @list.pop
   end
 
-  def contains?
-    #contains? returns true if the passed in value is in the list and otherwise returns false.
+  def contains?(data)
+    @list.each do |node|
+      if data == node.value
+        return true
+      else
+        return false
+      end
+    end
   end
 
   def find(data)
-    #find(data) returns the index of the node containing data, or nil if not found.
+    @list.each_with_index do |item, index|
+      if data == item.value
+        return index
+      else
+        return nil
+      end
+    end
   end
 
   def to_s
     #to_s represent your LinkedList objects as strings, so you can print them out and preview them in the console. The format should be: ( data ) -> ( data ) -> ( data ) -> nil
+    if @list.length > 1
+      @list.each do |item|
+        if item == @list[-1]
+          print "( #{item.value} ) -> nil"
+        else
+          print "( #{item.value} ) -> "
+        end
+      end
+    else
+      puts "( #{@list[0].value} )"
+    end
   end
 
   def insert_at(index)
@@ -75,5 +98,8 @@ mylist = LinkedList.new
 
 mylist.append("there")
 mylist.prepend("hello")
+mylist.append("bob")
+mylist.append("and sally")
 puts mylist.size
 puts mylist.head.value
+puts mylist.to_s
