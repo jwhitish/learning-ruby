@@ -24,7 +24,7 @@ class LinkedList
   def prepend(value)
     node = Node.new(value)
     @list.unshift(node)
-    #update all following node links
+    update_links
   end
 
   def size
@@ -68,11 +68,11 @@ class LinkedList
   end
 
   def to_s
-    #to_s represent your LinkedList objects as strings, so you can print them out and preview them in the console. The format should be: ( data ) -> ( data ) -> ( data ) -> nil
+    #weirdly outputting the object ref after the prints...
     if @list.length > 1
       @list.each do |item|
         if item == @list[-1]
-          print "( #{item.value} ) -> nil"
+          puts "( #{item.value} ) -> nil"
         else
           print "( #{item.value} ) -> "
         end
@@ -82,13 +82,21 @@ class LinkedList
     end
   end
 
-  def insert_at(index)
-    #insert_at(index) that inserts the node at the given index
-    #update all node links
+  def insert_at(index, value)
+    node = Node.new(value)
+    @list.insert(index, node)
+    update_links
   end
 
   def remove_at(index)
-    #remove_at(index) that removes the node at the given index. (You will need to update the links of your nodes in the list when you remove a node.)
+    @list.delete_at(index)
+    update_links
+  end
+
+  def update_links
+    @list.each_with_index do |node, index|
+      node.next_node = @list[index + 1]
+    end
   end
 
 end
@@ -99,7 +107,8 @@ mylist = LinkedList.new
 mylist.append("there")
 mylist.prepend("hello")
 mylist.append("bob")
-mylist.append("and sally")
+# mylist.append("and sally")
+# mylist.remove_at(1)
 puts mylist.size
-puts mylist.head.value
+
 puts mylist.to_s
