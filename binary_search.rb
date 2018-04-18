@@ -120,7 +120,7 @@ class Tree
   def depth_first_search(target, currentNode)
     if currentNode.value == target
       puts "Found target (#{target}) at node: #{currentNode}\n\n"
-      return
+      return currentNode
     else #if not
       if currentNode.left != nil
         depth_first_search(target, currentNode.left)
