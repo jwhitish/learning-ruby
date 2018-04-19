@@ -117,20 +117,18 @@ class Tree
     return nil
   end
 
-  def depth_first_search(target, currentNode)
-    if currentNode.value == target
-      puts "Found target (#{target}) at node: #{currentNode}\n\n"
-      return currentNode
-    else #if not
-      if currentNode.left != nil
-        depth_first_search(target, currentNode.left)
-      end
-      if currentNode.right != nil
-        depth_first_search(target, currentNode.right)
-      end
-      if currentNode == @tree[-1]
-        puts "Target (#{target}) not found.\n\n"
-      end
+  def depth_first_search(target, current_node)
+    return nil unless current_node
+    return current_node if current_node.value == target
+    return depth_first_search(target, current_node.left) || depth_first_search(target, current_node.right)
+  end
+
+  def search_display(target, root)
+    found_node = depth_first_search(target, root)
+    if found_node
+      puts "Found target (#{target}) at node: #{found_node}\n\n"
+    else
+      puts "Target (#{target}) not found.\n\n"
     end
   end
 
@@ -148,6 +146,5 @@ new_tree = Tree.new
 new_tree.build_tree(data)
 #new_tree.print_tree
 #new_tree.breadth_first_search(8)
-new_tree.depth_first_search(32, new_tree.root)
-new_tree.depth_first_search(8, new_tree.root)
-#new_tree.depth_first_search(432, new_tree.root)
+new_tree.search_display(8, new_tree.root)
+new_tree.search_display(432, new_tree.root)

@@ -24,7 +24,7 @@ end
 
 def depth_first_search(target, currentNode)
   if currentNode.value == target
-    puts "\nFound target (#{target}) at node: #{currentNode}\n\n"
+    puts "Found target (#{target}) at node: #{currentNode}\n\n"
     return currentNode
   else #if not
     if currentNode.left != nil
@@ -33,7 +33,8 @@ def depth_first_search(target, currentNode)
     if currentNode.right != nil
       depth_first_search(target, currentNode.right)
     end
+    if currentNode == @tree[-1]
+      puts "Target (#{target}) not found.\n\n"
+    end
   end
-  puts "Target not found."
-  return nil
 end
