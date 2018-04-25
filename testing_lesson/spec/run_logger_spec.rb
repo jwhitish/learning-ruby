@@ -16,3 +16,4 @@ describe Run do
     it { is_expected.to respond_to(:timestamp) }
   end
 end
+ 
