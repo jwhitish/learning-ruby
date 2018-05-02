@@ -26,7 +26,7 @@ class Game
     case choice
       when "1"
         self.init_board
-        self.display_board
+        self.turn
         #turn
       when "2"
         abort("Goodbye!\n")
@@ -49,17 +49,44 @@ class Game
     end
   end
 
-  def turn
-    #prompt for user input on column to select
-    #add user choice to game board in correct column and row ( /U+26AA and /U+26AB )
-    #check for winner
-    #computer's turn, check for winner
-    #loop until won or no moves left
+  def turn #2 player
+    player = white
+    tile = w_tile
+    w_tile = "\u26aa".encode('utf-8')
+    b_tile = "\u26ab".encode('utf-8')
+
+    until game_over?
+      self.display_board
+      column = prompt("Choose a column to drop your tile in:")
+      if @the_board[5][column.to_i - 1] == " "
+        @the_board[5][column.to_i - 1] = tile
+      elsif @the_board[4][column.to_i - 1] == " "
+        @the_board[4][column.to_i - 1] = tile
+      elsif @the_board[3][column.to_i - 1] == " "
+        @the_board[3][column.to_i - 1] = tile
+      elsif @the_board[2][column.to_i - 1] == " "
+        @the_board[2][column.to_i - 1] = tile
+      elsif @the_board[1][column.to_i - 1] == " "
+        @the_board[1][column.to_i - 1] = tile
+      elsif @the_board[0][column.to_i - 1] == " "
+        @the_board[0][column.to_i - 1] = tile
+      else
+        puts "Column is full"
+        self.turn
+      end
+      if player == white
+        player = black
+        tile = b_tile
+      else
+        player = white
+        tile = w_tile
+      end
   end
 
-  def winner?
+  def game_over?
     #check for winner
-    #if yes, announce then return to menu
+    #check for full board
+    #if true, announce then return to menu
   end
 
 end #class end
