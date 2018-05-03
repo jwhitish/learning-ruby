@@ -1,6 +1,6 @@
 
 class Game
-
+  attr_accessor :white, :black
   def initialize
     @the_board = Array.new
   end
@@ -34,53 +34,61 @@ class Game
   end
 
   def init_board
-    @the_board = [[" "," "," "," "," "," "," "],
-    [" "," "," "," "," "," "," "],
-    [" "," "," "," "," "," "," "],
-    [" "," "," "," "," "," "," "],
-    [" "," "," "," "," "," "," "],
-    [" "," "," "," "," "," "," "],]
+    @the_board = [["  ","  ","  ","  ","  ","  ","  "],
+    ["  ","  ","  ","  ","  ","  ","  "],
+    ["  ","  ","  ","  ","  ","  ","  "],
+    ["  ","  ","  ","  ","  ","  ","  "],
+    ["  ","  ","  ","  ","  ","  ","  "],
+    ["  ","  ","  ","  ","  ","  ","  "]]
   end
 
   def display_board
-    puts "                                1 2 3 4 5 6 7"
+    puts "                                 1  2  3  4  5  6  7"
     @the_board.each do |i|
       puts "                               |" + i.join("|") + "|"
     end
   end
 
   def turn #2 player
-    player = white
-    tile = w_tile
     w_tile = "\u26aa".encode('utf-8')
     b_tile = "\u26ab".encode('utf-8')
+    player = white
+    tile = w_tile
 
     until game_over?
       self.display_board
       column = prompt("Choose a column to drop your tile in:")
-      if @the_board[5][column.to_i - 1] == " "
-        @the_board[5][column.to_i - 1] = tile
-      elsif @the_board[4][column.to_i - 1] == " "
-        @the_board[4][column.to_i - 1] = tile
-      elsif @the_board[3][column.to_i - 1] == " "
-        @the_board[3][column.to_i - 1] = tile
-      elsif @the_board[2][column.to_i - 1] == " "
-        @the_board[2][column.to_i - 1] = tile
-      elsif @the_board[1][column.to_i - 1] == " "
-        @the_board[1][column.to_i - 1] = tile
-      elsif @the_board[0][column.to_i - 1] == " "
-        @the_board[0][column.to_i - 1] = tile
+      if column == "menu"
+        self.menu
       else
-        puts "Column is full"
-        self.turn
+        if @the_board[5][column.to_i - 1] == "  "
+          @the_board[5][column.to_i - 1] = tile
+        elsif @the_board[4][column.to_i - 1] == "  "
+          @the_board[4][column.to_i - 1] = tile
+        elsif @the_board[3][column.to_i - 1] == "  "
+          @the_board[3][column.to_i - 1] = tile
+        elsif @the_board[2][column.to_i - 1] == "  "
+          @the_board[2][column.to_i - 1] = tile
+        elsif @the_board[1][column.to_i - 1] == "  "
+          @the_board[1][column.to_i - 1] = tile
+        elsif @the_board[0][column.to_i - 1] == "  "
+          @the_board[0][column.to_i - 1] = tile
+        else
+          puts "Column is full"
+          #restart without resetting the turn?
+        end
       end
+      #why is this stuck on black?
       if player == white
         player = black
         tile = b_tile
+        puts "switch black!"
       else
         player = white
         tile = w_tile
+        puts "switch white!"
       end
+    end
   end
 
   def game_over?
