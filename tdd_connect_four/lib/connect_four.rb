@@ -1,6 +1,6 @@
 
 class Game
-  attr_accessor :white, :black
+  attr_accessor :white, :black, :player
   def initialize
     @the_board = Array.new
   end
@@ -93,6 +93,8 @@ class Game
 
   def game_over?
     #check for winner
+    #array.all? {|x| x == array[0]}
+    
     #check for full board
     #if true, announce then return to menu
   end
