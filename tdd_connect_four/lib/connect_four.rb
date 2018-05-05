@@ -50,10 +50,10 @@ class Game
   end
 
   def turn #2 player
-    w_tile = "\u26aa".encode('utf-8')
-    b_tile = "\u26ab".encode('utf-8')
+    @w_tile = "\u26aa".encode('utf-8')
+    @b_tile = "\u26ab".encode('utf-8')
     player = white
-    tile = w_tile
+    tile = @w_tile
 
     until game_over?
       self.display_board
@@ -81,11 +81,11 @@ class Game
       #why is this stuck on black?
       if player == white
         player = black
-        tile = b_tile
+        tile = @b_tile
         puts "switch black!"
       else
         player = white
-        tile = w_tile
+        tile = @w_tile
         puts "switch white!"
       end
     end
@@ -93,10 +93,31 @@ class Game
 
   def game_over?
     #check for winner
-    #array.all? {|x| x == array[0]}
-    
+    if winner?
+      abort("winner!")
+    end
+
     #check for full board
     #if true, announce then return to menu
+  end
+
+  def winner?
+    #checks horizontal winner
+    queue = []
+    @the_board.each do |x|
+      x.each do |y|
+        if queue.length <= 4
+          queue.unshift(y)
+          queue.all? {|z| z == queue[0]}
+        else
+          queue.pop
+          queue.unshift(y)
+          queue.all? {|z| z == queue[0]}
+        end
+      end
+    end
+    #check for vertical winner
+    #check for diagonal winner
   end
 
 end #class end
