@@ -27,7 +27,6 @@ class Game
       when "1"
         self.init_board
         self.turn
-        #turn
       when "2"
         abort("Goodbye!\n")
     end
@@ -53,7 +52,7 @@ class Game
     @w_tile = "\u26aa".encode('utf-8')
     @b_tile = "\u26ab".encode('utf-8')
     @player = white
-    tile = @w_tile
+    @tile = @w_tile
 
     until game_over?
       self.display_board
@@ -62,17 +61,17 @@ class Game
         self.menu
       else
         if @the_board[5][column.to_i - 1] == "  "
-          @the_board[5][column.to_i - 1] = tile
+          @the_board[5][column.to_i - 1] = @tile
         elsif @the_board[4][column.to_i - 1] == "  "
-          @the_board[4][column.to_i - 1] = tile
+          @the_board[4][column.to_i - 1] = @tile
         elsif @the_board[3][column.to_i - 1] == "  "
-          @the_board[3][column.to_i - 1] = tile
+          @the_board[3][column.to_i - 1] = @tile
         elsif @the_board[2][column.to_i - 1] == "  "
-          @the_board[2][column.to_i - 1] = tile
+          @the_board[2][column.to_i - 1] = @tile
         elsif @the_board[1][column.to_i - 1] == "  "
-          @the_board[1][column.to_i - 1] = tile
+          @the_board[1][column.to_i - 1] = @tile
         elsif @the_board[0][column.to_i - 1] == "  "
-          @the_board[0][column.to_i - 1] = tile
+          @the_board[0][column.to_i - 1] = @tile
         else
           puts "Column is full"
           #restart without resetting the turn?
@@ -81,11 +80,11 @@ class Game
       #why is this stuck on black?
       if @player == white
         @player = black
-        tile = @b_tile
+        @tile = @b_tile
         puts "switch black!"
       else
         @player = white
-        tile = @w_tile
+        @tile = @w_tile
         puts "switch white!"
       end
     end
@@ -93,7 +92,7 @@ class Game
 
   def game_over?
     if winner?
-      puts "#{@player} is the winner!"
+      puts "#{@tile} wins!"
       self.menu
     end
     #check for a full board
@@ -105,23 +104,12 @@ class Game
   end
 
   def winner?
-    check_horiz || check_vert || check_diag
+    check_horiz #|| check_vert || check_diag
   end
 
   def check_horiz
     #checks horizontal winner
-    queue = []
-    @the_board.each do |x|
-      x.each do |y|
-        if queue.length < 4
-          queue.unshift(y)
-        else
-          queue.pop
-          queue.unshift(y)
-          queue.all? {|z| z == @w_tile || z == @b_tile}
-        end
-      end
-    end
+    return false
   end
 
   def check_vert
