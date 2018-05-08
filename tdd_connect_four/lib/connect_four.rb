@@ -77,8 +77,8 @@ class Game
           #restart without resetting the turn?
         end
       end
-      #why is this stuck on black?
-      if @player == white
+      #why is the player nil?
+      if @player == white || @player == nil
         @player = black
         @tile = @b_tile
         puts "switch black!"
