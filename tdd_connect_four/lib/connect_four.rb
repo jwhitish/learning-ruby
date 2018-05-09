@@ -78,7 +78,8 @@ class Game
         end
       end
       #why is the player nil?
-      if @player == white || @player == nil
+      #need to fix the color handler
+      if @player == white
         @player = black
         @tile = @b_tile
         puts "switch black!"
