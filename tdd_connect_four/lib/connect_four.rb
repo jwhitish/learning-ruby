@@ -78,7 +78,7 @@ class Game
         end
       end
       #why is the player nil?
-      #need to fix the color handler 
+      #need to fix the color handler
       if @player == white
         @player = black
         @tile = @b_tile
@@ -110,16 +110,24 @@ class Game
 
   def check_horiz
     #checks horizontal winner
-    return false
+    #quick poc check
+    if @the_board[0][0] == @the_board[0][1] && @the_board[0][1] == @the_board[0][2] && @the_board[0][2] == @the_board[0][3]
+      return true
+      #returning true from the board values
+    else
+      return false
+    end
   end
 
   def check_vert
     #check for vertical winner
+    #just create a poc check
     return false
   end
 
   def check_diag
     #check for diagonal winner
+    #just create a poc check
     return false
   end
 
