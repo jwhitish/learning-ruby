@@ -2,3 +2,4 @@ learning git and command line.
 
 
 placeholder for working via tablet while computer is down
+Ditto
