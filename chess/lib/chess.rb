@@ -1,19 +1,19 @@
+#!/usr/bin/ruby
+
 #Properly constrain moves to the legal board
 #Write tests for pieces being checked often
 
 #Initially use uppercase letters for white, lower for black. 
 #ASCII can be subbed in through the print board method
 
-#Use from/to chess notation for moves (b2, b4), can also use standard xy pairs. If chess notation, need to translate to xy 
-
 #Disregard castling, en passant, pawn promotion for first iteration. Can be added later.
 
 #Should check for check, checkmate, stalemate; prevent moving into the first two- not a legal move
 
-#Validate selected piece is the players to move, or that it exists at all
-
 
 Class Board
+    require "yaml"
+
     def initialize
         @turn_count = 0
     end
@@ -28,6 +28,8 @@ Class Board
         Loop until end game conditions met
         Show the board
         Ask for a move
+            #Use from/to chess notation for moves (b2, b4), can also use standard xy pairs. If chess notation, need to translate to xy 
+            #Validate selected piece is the players to move, or that it exists at all
         Validate the move
         Commit
         Advance turn counter
@@ -44,14 +46,45 @@ Class Board
 
     def new_game
         #Start a new game
+        newgame = Board.new
+        newgame.turn
     end
 
     def load_game
-        #load a saved game
+        display_games
+        file_name = prompt("\nEnter the name of your saved game:").downcase + ".yml"
+        file_name = file_name.gsub(/\s/, "_")
+        if File.exist?("../saved_games/#{file_name}")
+            file = YAML.load_file("../saved_games/#{file_name}")
+            #@word = file[:word]
+            #@guesses = file[:guesses]
+            #@already_guessed = file[:already_guessed]
+            #@game_board = file[:game_board]
+            self.turn
+        else
+            puts "No game found with that name.\n\n"
+            self.menu
+        end
+    end
+
+    def display_games
+        puts "Current saved games: "
+        files = Dir.entries("../saved_games")
+        puts files[2..files.length].join(" | ")
     end
 
     def save_game
-        #save the game & serialize to file
+        file_name = prompt("Name your saved game:").downcase + ".yml"
+        file_name = file_name.gsub(/\s/, "_")
+        save_file = YAML.dump({
+            #word: @word,
+            #guesses: @guesses,
+            #already_guessed: @already_guessed,
+            #game_board: @game_board
+            })
+            File.open("../saved_games/#{file_name}", 'w') { |f| f.write save_file}
+        puts "\n\nGame Saved!\n\n"
+        self.menu
     end
 
     def menu
@@ -69,6 +102,7 @@ Class Board
                 abort("Goodbye!")
         end
     end
+
 
 end #class end
 
