@@ -1,14 +1,11 @@
 #!/usr/bin/ruby
 
 #Properly constrain moves to the legal board
-#Write tests for pieces being checked often
+#Disregard castling, en passant, pawn promotion for first iteration. Can be added later.
+#Should check for check, checkmate, stalemate; prevent moving into the first two- not a legal move
 
 #Initially use uppercase letters for white, lower for black. 
 #ASCII can be subbed in through the print board method
-
-#Disregard castling, en passant, pawn promotion for first iteration. Can be added later.
-
-#Should check for check, checkmate, stalemate; prevent moving into the first two- not a legal move
 
 
 Class Board
@@ -18,26 +15,30 @@ Class Board
         @turn_count = 0
     end
 
-    def prompt(message = 'Enter your guess:', symbol = ':> ')
+    def prompt(message = 'Enter your move:', symbol = ':> ')
         puts message
         print symbol
         gets.chomp
     end
 
-    def turn
-        Loop until end game conditions met
-        Show the board
-        Ask for a move
+    def play_game
+        #Loop until end game conditions met
+        #Show the board
+        #Ask for a move
             #Use from/to chess notation for moves (b2, b4), can also use standard xy pairs. If chess notation, need to translate to xy 
             #Validate selected piece is the players to move, or that it exists at all
-        Validate the move
-        Commit
-        Advance turn counter
-        Start again
+        #Validate the move
+        #Commit
+        #Advance turn counter
+        #Start again
+    end
+
+    def end_game?
+        #check for checkmate, stalemate
     end
 
     def welcome
-        Print welcome message
+        #Print welcome message
     end
 
     def instructions
@@ -47,7 +48,7 @@ Class Board
     def new_game
         #Start a new game
         newgame = Board.new
-        newgame.turn
+        newgame.play_game
     end
 
     def load_game
@@ -60,7 +61,7 @@ Class Board
             #@guesses = file[:guesses]
             #@already_guessed = file[:already_guessed]
             #@game_board = file[:game_board]
-            self.turn
+            self.play_game
         else
             puts "No game found with that name.\n\n"
             self.menu
@@ -111,7 +112,6 @@ end #class end
 
 #Create one ‘piece’ class with general piece traits, 
 #create subclasses for each type of piece that controls their unique moves
-#One master ‘board’ class which will handle gameplay
 
 Class Piece
 end
