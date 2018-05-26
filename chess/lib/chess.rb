@@ -61,10 +61,10 @@ Class Board
             #@guesses = file[:guesses]
             #@already_guessed = file[:already_guessed]
             #@game_board = file[:game_board]
-            self.play_game
+            play_game
         else
             puts "No game found with that name.\n\n"
-            self.menu
+            menu
         end
     end
 
@@ -85,20 +85,20 @@ Class Board
             })
             File.open("../saved_games/#{file_name}", 'w') { |f| f.write save_file}
         puts "\n\nGame Saved!\n\n"
-        self.menu
+        menu
     end
 
     def menu
         menu_choice = prompt("Enter a Number:\n1) Instructions\n2) New Game\n3) Load Game\n4) Save Game\n 5) Quit")
         case menu_choice
             when '1'
-                self.instructions
+                instructions
             when '2'
-                self.new_game
+                new_game
             when '3'
-                self.load_game
+                load_game
             when '4'
-                self.save_game
+                save_game
             when '5'
                 abort("Goodbye!")
         end
