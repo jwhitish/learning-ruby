@@ -1,4 +1,6 @@
 #!/usr/bin/ruby
+require './instructions.rb'
+require './welcome.rb'
 
 #Properly constrain moves to the legal board
 #Disregard castling, en passant, pawn promotion for first iteration. Can be added later.
@@ -13,6 +15,11 @@ Class Board
 
     def initialize
         @turn_count = 0
+        @the_board = Hash.new(" ")
+    end
+
+    def build_board
+        @the_board[]
     end
 
     def prompt(message = 'Enter your move:', symbol = ':> ')
@@ -22,27 +29,26 @@ Class Board
     end
 
     def play_game
-        #Loop until end game conditions met
+        until end_game?
         #Show the board
+            print_board
         #Ask for a move
-            #Use from/to chess notation for moves (b2, b4), can also use standard xy pairs. If chess notation, need to translate to xy 
+            #Use from/to notation for moves (b2,b4), need to translate to xy 
             #Validate selected piece is the players to move, or that it exists at all
+            #check for 'resign'/'draw' command
         #Validate the move
         #Commit
         #Advance turn counter
+        @turn_count += 1
         #Start again
+        end
+    end
+
+    def print_board
     end
 
     def end_game?
         #check for checkmate, stalemate
-    end
-
-    def welcome
-        #Print welcome message
-    end
-
-    def instructions
-        #call instructions
     end
 
     def new_game
@@ -109,7 +115,6 @@ end #class end
 
 
 
-
 #Create one ‘piece’ class with general piece traits, 
 #create subclasses for each type of piece that controls their unique moves
 
@@ -133,3 +138,6 @@ end
 
 Class King < Piece
 end
+
+letsplay = Board.new
+letsplay.print_welcome #contained in welcome.rb
