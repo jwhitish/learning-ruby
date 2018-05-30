@@ -2,15 +2,12 @@
 require './instructions.rb'
 require './welcome.rb'
 
-#Properly constrain moves to the legal board
-
 #Should check for check, checkmate, stalemate; prevent moving into the first two- not a legal move
 
-#Initially use uppercase letters for white, lower for black.
-#ASCII can be subbed in through the print board method
-
+#ASCII can be subbed in for tokens later
 #Disregard castling, en passant, pawn promotion for first iteration. Can be added later.
 
+#use an array to keep track of piece objects currently on the board that print_board can use to display the board?
 
 class Board
   attr_accessor :turn_count
@@ -27,6 +24,7 @@ class Board
   end
 
   def print_board
+    #print out the current board in a nice format with row/co labeled
   end
 
   def prompt(message = 'Enter your move:', symbol = ':> ')
@@ -58,6 +56,7 @@ class Board
   def new_game
     #Start a new game
     newgame = Board.new
+    nawgame.build_board
     newgame.play_game
   end
 
@@ -122,7 +121,7 @@ class Board
 #go back and add a restraint to keep pieces on the board
 
 class Piece
-  attr_reader :x, :y, :color, :valid_moves
+  attr_reader :x, :y, :color, :legal_moves, :token
 
   def initialize(x, y, color)
     @x = x
@@ -132,6 +131,12 @@ class Piece
 end #class end
 
 class Pawn < Piece
+  if @color == white
+    @token = "P"
+  else
+    @token = "p"
+  end
+
   def generate_moves
     candidates = []
     if color == :white
@@ -152,6 +157,12 @@ class Pawn < Piece
 end #class end
 
 class Rook < Piece
+  if @color == white
+    @token = "R"
+  else
+    @token = "r"
+  end
+
   def generate_moves
     candidates = []
 
@@ -165,6 +176,12 @@ class Rook < Piece
 end #class end
 
 class Knight < Piece
+  if @color == white
+    @token = "N"
+  else
+    @token = "n"
+  end
+
   def generate_moves
     candidates = []
 
@@ -175,20 +192,60 @@ class Knight < Piece
 end #class end
 
 class Bishop < Piece
+  if @color == white
+    @token = "B"
+  else
+    @token = "b"
+  end
+
   def generate_moves
     candidates =[]
+
+    candidates.push([@x + 1, @y + 1]).push([@x + 2, @y + 2]).push([@x + 3, @y + 3]).push([@x + 4, @y + 4]).push([@x + 5, @y + 5]).push([@x + 6, @y + 6]).push([@x + 7, @y + 7])
+    candidates.push([@x + 1, @y - 1]).push([@x + 2, @y - 2]).push([@x + 3, @y - 3]).push([@x + 4, @y - 4]).push([@x + 5, @y - 5]).push([@x + 6, @y - 6]).push([@x + 7, @y - 7])
+    candidates.push([@x - 1, @y + 1]).push([@x - 2, @y + 2]).push([@x - 3, @y + 3]).push([@x - 4, @y + 4]).push([@x - 5, @y + 5]).push([@x - 6, @y + 6]).push([@x - 7, @y + 7])
+    candidates.push([@x - 1, @y - 1]).push([@x - 2, @y - 2]).push([@x - 3, @y - 3]).push([@x - 4, @y - 4]).push([@x - 5, @y - 5]).push([@x - 6, @y - 6]).push([@x - 7, @y - 7])
+
+    @legal_moves = candidates.select{|cand| cand[0] >= 0 && cand[0] <= 7 && cand[1] >= 0 && cand[1] <= 7}
   end
 end #class end
 
 class Queen < Piece
+  if @color == white
+    @token = "Q"
+  else
+    @token = "q"
+  end
+
   def generate_moves
     candidates = []
+
+    candidates.push([@x, @y + 1]).push([@x, @y + 2]).push([@x, @y + 3]).push([@x, @y + 4]).push([@x, @y + 5]).push([@x, @y + 6]).push([@x, @y + 7])
+    candidates.push([@x, @y - 1]).push([@x, @y - 2]).push([@x, @y - 3]).push([@x, @y - 4]).push([@x, @y - 5]).push([@x, @y - 6]).push([@x, @y - 7])
+    candidates.push([@x + 1, @y]).push([@x + 2, @y]).push([@x + 3, @y]).push([@x + 4, @y]).push([@x + 5, @y]).push([@x + 6, @y]).push([@x + 7, @y])
+    candidates.push([@x - 1, @y]).push([@x - 2, @y]).push([@x - 3, @y]).push([@x - 4, @y]).push([@x - 5, @y]).push([@x - 6, @y]).push([@x - 7, @y])
+    candidates.push([@x + 1, @y + 1]).push([@x + 2, @y + 2]).push([@x + 3, @y + 3]).push([@x + 4, @y + 4]).push([@x + 5, @y + 5]).push([@x + 6, @y + 6]).push([@x + 7, @y + 7])
+    candidates.push([@x + 1, @y - 1]).push([@x + 2, @y - 2]).push([@x + 3, @y - 3]).push([@x + 4, @y - 4]).push([@x + 5, @y - 5]).push([@x + 6, @y - 6]).push([@x + 7, @y - 7])
+    candidates.push([@x - 1, @y + 1]).push([@x - 2, @y + 2]).push([@x - 3, @y + 3]).push([@x - 4, @y + 4]).push([@x - 5, @y + 5]).push([@x - 6, @y + 6]).push([@x - 7, @y + 7])
+    candidates.push([@x - 1, @y - 1]).push([@x - 2, @y - 2]).push([@x - 3, @y - 3]).push([@x - 4, @y - 4]).push([@x - 5, @y - 5]).push([@x - 6, @y - 6]).push([@x - 7, @y - 7])
+
+    @legal_moves = candidates.select{|cand| cand[0] >= 0 && cand[0] <= 7 && cand[1] >= 0 && cand[1] <= 7}
   end
 end #class end
 
 class King < Piece
+  if @color == white
+    @token = "K"
+  else
+    @token = "k"
+  end
+
   def generate_moves
     candidates = []
+
+    candidates.push([@x, @y + 1]).push([@x, @y - 1]).push([@x + 1, @y]).push([@x - 1, @y]).push([@x + 1, @y + 1]).push([@x + 1, @y - 1]).push([@x - 1, @y + 1]).push([@x - 1, @y - 1])
+
+    @legal_moves = candidates.select{|cand| cand[0] >= 0 && cand[0] <= 7 && cand[1] >= 0 && cand[1] <= 7}
   end
 end #class end
 
