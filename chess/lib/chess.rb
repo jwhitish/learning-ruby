@@ -24,7 +24,23 @@ class Board
   end
 
   def print_board
-    #print out the current board in a nice format with row/co labeled
+    puts "8| " + @the_board[0][0] + " | " + @the_board[0][1] + " | " + @the_board[0][2] + " | " + @the_board[0][3] + " | " + @the_board[0][4] + " | " + @the_board[0][5] + " | " + @the_board[0][6] + " | " + @the_board[0][7] + " |"
+    puts "  --- --- --- --- --- --- --- --- "
+    puts "7| " + @the_board[1][0] + " | " + @the_board[1][1] + " | " + @the_board[1][2] + " | " + @the_board[1][3] + " | " + @the_board[1][4] + " | " + @the_board[1][5] + " | " + @the_board[1][6] + " | " + @the_board[1][7] + " |"
+    puts "  --- --- --- --- --- --- --- --- "
+    puts "6| " + @the_board[2][0] + " | " + @the_board[2][1] + " | " + @the_board[2][2] + " | " + @the_board[2][3] + " | " + @the_board[2][4] + " | " + @the_board[2][5] + " | " + @the_board[2][6] + " | " + @the_board[2][7] + " |"
+    puts "  --- --- --- --- --- --- --- --- "
+    puts "5| " + @the_board[3][0] + " | " + @the_board[3][1] + " | " + @the_board[3][2] + " | " + @the_board[3][3] + " | " + @the_board[3][4] + " | " + @the_board[3][5] + " | " + @the_board[3][6] + " | " + @the_board[3][7] + " |"
+    puts "  --- --- --- --- --- --- --- --- "
+    puts "4| " + @the_board[4][0] + " | " + @the_board[4][1] + " | " + @the_board[4][2] + " | " + @the_board[4][3] + " | " + @the_board[4][4] + " | " + @the_board[4][5] + " | " + @the_board[4][6] + " | " + @the_board[4][7] + " |"
+    puts "  --- --- --- --- --- --- --- --- "
+    puts "3| " + @the_board[5][0] + " | " + @the_board[5][1] + " | " + @the_board[5][2] + " | " + @the_board[5][3] + " | " + @the_board[5][4] + " | " + @the_board[5][5] + " | " + @the_board[5][6] + " | " + @the_board[5][7] + " |"
+    puts "  --- --- --- --- --- --- --- --- "
+    puts "2| " + @the_board[6][0] + " | " + @the_board[6][1] + " | " + @the_board[6][2] + " | " + @the_board[6][3] + " | " + @the_board[6][4] + " | " + @the_board[6][5] + " | " + @the_board[6][6] + " | " + @the_board[6][7] + " |"
+    puts "  --- --- --- --- --- --- --- --- "
+    puts "1| " + @the_board[7][0] + " | " + @the_board[7][1] + " | " + @the_board[7][2] + " | " + @the_board[7][3] + " | " + @the_board[7][4] + " | " + @the_board[7][5] + " | " + @the_board[7][6] + " | " + @the_board[7][7] + " |"
+    puts "  --- --- --- --- --- --- --- --- "
+    puts "   a   b   c   d   e   f   g   h\n\n"
   end
 
   def prompt(message = 'Enter your move:', symbol = ':> ')
