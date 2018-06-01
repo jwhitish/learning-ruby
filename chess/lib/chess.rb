@@ -70,7 +70,7 @@ class Board
   end
 
   def translate_coords(input)
-    #translate chess notation. to x,y coords
+    #translate chess notation to x,y coords
     x1 = input[0] #letter to Number
     y1 = input[1]
     x2 = input[2]  #letter to Number
