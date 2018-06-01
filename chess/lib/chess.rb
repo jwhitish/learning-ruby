@@ -1,13 +1,11 @@
 #!/usr/bin/ruby
 require './instructions.rb'
-require './welcome.rb'
 
 #Should check for check, checkmate, stalemate; prevent moving into the first two- not a legal move
 
 #ASCII can be subbed in for tokens later
 #Disregard castling, en passant, pawn promotion for first iteration. Can be added later.
 
-#use an array to keep track of piece objects currently on the board that print_board can use to display the board?
 
 class Board
   attr_accessor :turn_count
@@ -49,12 +47,44 @@ class Board
     gets.chomp
   end
 
+  def print_welcome
+  	puts '			      _                    '
+  	puts '			     | |                   '
+  	puts '			  ___| |__   ___  ___ ___  '
+  	puts '			 / __|  _ \ / _ \/ __/ __| '
+  	puts '			| (__| | | |  __/\__ \__ \ '
+  	puts '			 \___|_| |_|\___||___/___/ '
+  	puts '		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+  	puts
+  	puts "Chess is a two-player strategy board game played on a chessboard, a gameboard\n with 64 squares arranged in an 8×8 grid. Each player begins with 16 pieces: \none king, one queen, two rooks, two knights, two bishops, and eight pawns. \n\nThe objective is to checkmate the opponent's king by placing it under an \ninescapable threat of capture. To this end, a player's pieces are used to \nattack and capture the opponent's pieces. The game ends when one player \ncaptures the other player's King, there are no legal moves remaining, or \none player declares defeat.\n\n"
+  	puts '		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+  	menu
+  end
+
+  def turn_color
+    if @turn_count % 2 == 0
+      @turn_color = "black"
+    else
+      @turn_color = "white"
+    end
+  end
+
+  def translate_coords(input)
+    #translate chess notation. to x,y coords
+    x1 = input[0] #letter to Number
+    y1 = input[1]
+    x2 = input[2]  #letter to Number
+    y2 = input[3]
+
+  end
+
   def play_game
     until end_game?
-      #Show the board
+      puts "Turn #{@turn_count}:"
       print_board
-      #Ask for a move
+      move = prompt("#{turn_color}'s move: ")
       #Use from/to notation for moves (b2,b4), need to translate to xy
+      translate_coords(move)
       #Validate selected piece is the players to move, or that it exists at all
       #check for 'resign'/'draw' command
       #Validate the move

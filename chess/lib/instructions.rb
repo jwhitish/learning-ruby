@@ -1,5 +1,4 @@
-#gem install launchy
-#require 'launchy'
+require 'launchy'
 
 def instructions
 	puts "\n		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
@@ -39,7 +38,7 @@ def instructions
 
 	more_info = prompt
 	if more_info == 'y'
-		#Launchy.open("https://en.wikipedia.org/wiki/Chess")
+		Launchy.open("https://en.wikipedia.org/wiki/Chess")
 	end
 end
 
