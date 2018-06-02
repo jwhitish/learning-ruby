@@ -71,11 +71,13 @@ class Board
 
   def translate_coords(input)
     #translate chess notation to x,y coords
-    x1 = input[0] #letter to Number
-    y1 = input[1]
-    x2 = input[2]  #letter to Number
-    y2 = input[3]
-
+    cypher_hash = { 'a' => 0, 'b' => 1, 'c' => 2, 'd' => 3, 'e' => 4, 'f' => 5, 'g' => 6, 'h' => 7 }
+    x1 = cypher_hash[input[0]]
+    y1 = input[1] - 1
+    x2 = cypher_hash[input[2]]
+    y2 = input[3] - 1
+    origin = @the_board[x1][y1]
+    target = @the_board[x2][y2]
   end
 
   def play_game
