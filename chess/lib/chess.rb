@@ -85,15 +85,29 @@ class Board
       puts "Turn #{@turn_count}:"
       print_board
       move = prompt("#{turn_color}'s move: ")
-      #Use from/to notation for moves (b2,b4), need to translate to xy
+      user_end_game(move)
       translate_coords(move)
       #Validate selected piece is the players to move, or that it exists at all
-      #check for 'resign'/'draw' command
       #Validate the move
       #Commit
-      #Advance turn counter
       @turn_count += 1
-      #Start again
+    end
+  end
+
+  def user_end_game(move) #switch to an if statement?
+    case move
+      when 'draw'
+        puts "It's a Draw!\n\n"
+        menu
+      when 'resign'
+        if @turn_color = "black"
+          puts "Black resigns, White wins!"
+          menu
+        else
+          puts "White resigns, Black wins!"
+          menu
+        end
+      end
     end
   end
 
@@ -148,16 +162,16 @@ class Board
     def menu
       menu_choice = prompt("Enter a Number:\n1) Instructions\n2) New Game\n3) Load Game\n4) Save Game\n 5) Quit")
       case menu_choice
-      when '1'
-        instructions
-      when '2'
-        new_game
-      when '3'
-        load_game
-      when '4'
-        save_game
-      when '5'
-        abort("Goodbye!")
+        when '1'
+          instructions
+        when '2'
+          new_game
+        when '3'
+          load_game
+        when '4'
+          save_game
+        when '5'
+          abort("Goodbye!")
       end
     end
 
@@ -165,8 +179,6 @@ class Board
   end #class end
 
 
-
-#go back and add a restraint to keep pieces on the board
 
 class Piece
   attr_reader :x, :y, :color, :legal_moves, :token
