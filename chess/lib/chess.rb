@@ -58,6 +58,8 @@ class Board
   	puts
   	puts "Chess is a two-player strategy board game played on a chessboard, a gameboard\n with 64 squares arranged in an 8×8 grid. Each player begins with 16 pieces: \none king, one queen, two rooks, two knights, two bishops, and eight pawns. \n\nThe objective is to checkmate the opponent's king by placing it under an \ninescapable threat of capture. To this end, a player's pieces are used to \nattack and capture the opponent's pieces. The game ends when one player \ncaptures the other player's King, there are no legal moves remaining, or \none player declares defeat.\n\n"
   	puts '		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+    puts "On your turn, move by entering the origin and destination coordinates when \nprompted like this: a1a4. To declare a draw or resign the match, simply type 'draw' or \n'resign' when promped for a move. At any time you may type 'menu' to \nsee the menu options."
+    puts '		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
   	menu
   end
 
@@ -85,7 +87,7 @@ class Board
       puts "Turn #{@turn_count}:"
       print_board
       move = prompt("#{turn_color}'s move: ")
-      user_end_game(move)
+      non_coord_entry(move)
       translate_coords(move)
       #Validate selected piece is the players to move, or that it exists at all
       #Validate the move
@@ -94,7 +96,7 @@ class Board
     end
   end
 
-  def user_end_game(move) #switch to an if statement?
+  def non_coord_entry(move) #switch to an if statement?
     case move
       when 'draw'
         puts "It's a Draw!\n\n"
@@ -107,6 +109,8 @@ class Board
           puts "White resigns, Black wins!"
           menu
         end
+      when 'menu'
+        menu
       end
     end
   end
