@@ -19,6 +19,14 @@ class Board
   def build_board
     #construct the board and put pieces on it
     #white on bottom
+    Pawn.new(0,1,white)
+    Pawn.new(1,1,white)
+    Pawn.new(2,1,white)
+    Pawn.new(3,1,white)
+    Pawn.new(4,1,white)
+    Pawn.new(5,1,white)
+    Pawn.new(6,1,white)
+    Pawn.new(7,1,white)
   end
 
   def print_board
