@@ -17,7 +17,8 @@ class Board
   end
 
   def build_board
-    #construct the board and put pieces on it
+    #construct the board, pieces
+    # add to @the_board
     #white on bottom
     Pawn.new(0,1,white)
     Pawn.new(1,1,white)
@@ -49,13 +50,13 @@ class Board
     puts "   a   b   c   d   e   f   g   h\n\n"
   end
 
-  def prompt(message = 'Enter your move:', symbol = ':> ')
+  def prompt(message = 'Enter your move:', symbol = ':> ') #done
     puts message
     print symbol
     gets.chomp
   end
 
-  def print_welcome
+  def print_welcome #done
   	puts '			      _                    '
   	puts '			     | |                   '
   	puts '			  ___| |__   ___  ___ ___  '
@@ -71,7 +72,7 @@ class Board
   	menu
   end
 
-  def turn_color
+  def turn_color #done
     if @turn_count % 2 == 0
       @turn_color = "black"
     else
@@ -79,13 +80,12 @@ class Board
     end
   end
 
-  def translate_coords(input)
-    #translate chess notation to x,y coords
+  def translate_coords(input) #done
     cypher_hash = { 'a' => 0, 'b' => 1, 'c' => 2, 'd' => 3, 'e' => 4, 'f' => 5, 'g' => 6, 'h' => 7 }
     x1 = cypher_hash[input[0]]
-    y1 = input[1] - 1
+    y1 = input[1].to_i - 1
     x2 = cypher_hash[input[2]]
-    y2 = input[3] - 1
+    y2 = input[3].to_i - 1
     origin = @the_board[x1][y1]
     target = @the_board[x2][y2]
   end
@@ -94,17 +94,17 @@ class Board
     until end_game?
       puts "Turn #{@turn_count}:"
       print_board
-      move = prompt("#{turn_color}'s move: ")
+      move = prompt("#{turn_color}'s move: ").to_s
       non_coord_entry(move)
       translate_coords(move)
       #Validate selected piece is the players to move, or that it exists at all
-      #Validate the move
-      #Commit
+      #Validate the move, check its legal
+      #Commit, update @the_board and piece coords
       @turn_count += 1
     end
   end
 
-  def non_coord_entry(move) #switch to an if statement?
+  def non_coord_entry(move) #done
     case move
       when 'draw'
         puts "It's a Draw!\n\n"
@@ -119,7 +119,6 @@ class Board
         end
       when 'menu'
         menu
-      end
     end
   end
 
@@ -127,10 +126,9 @@ class Board
     #check for checkmate, stalemate
   end
 
-  def new_game
-    #Start a new game
+  def new_game #done
     newgame = Board.new
-    nawgame.build_board
+    newgame.build_board
     newgame.play_game
   end
 
@@ -151,10 +149,11 @@ class Board
     end
   end
 
-  def display_games
+  def display_games #done
     puts "Current saved games: "
     files = Dir.entries("../saved_games")
     puts files[2..files.length].join(" | ")
+    puts
   end
 
   def save_game
@@ -171,7 +170,7 @@ class Board
       menu
     end
 
-    def menu
+    def menu #done
       menu_choice = prompt("Enter a Number:\n1) Instructions\n2) New Game\n3) Load Game\n4) Save Game\n 5) Quit")
       case menu_choice
         when '1'
@@ -186,7 +185,6 @@ class Board
           abort("Goodbye!")
       end
     end
-
 
   end #class end
 
@@ -211,7 +209,7 @@ class Pawn < Piece
 
   def generate_moves
     candidates = []
-    if color == :white
+    if @color == :white
       if @turn_count < 3
         @candidates.push([@x, @y + 1]).push([@x, @y + 2])
       else
@@ -322,4 +320,4 @@ class King < Piece
 end #class end
 
 letsplay = Board.new
-letsplay.print_welcome #contained in welcome.rb
+letsplay.print_welcome
