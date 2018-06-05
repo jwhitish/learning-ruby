@@ -28,6 +28,14 @@ class Board
     Pawn.new(5,1,white)
     Pawn.new(6,1,white)
     Pawn.new(7,1,white)
+    Rook.new(0,0,white)
+    Knight.new(1,0,white)
+    Bishop.new(2,0,white)
+    Queen.new(3,0,white)
+    King.new(4,0,white)
+    Bishop.new(5,0,white)
+    Kight.new(6,0,white)
+    Rook.new(7,0,white)
   end
 
   def print_board
