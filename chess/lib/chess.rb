@@ -1,6 +1,8 @@
 #!/usr/bin/ruby
 require './instructions.rb'
 
+#NOT currently operational
+
 #Should check for check, checkmate, stalemate; prevent moving into the first two- not a legal move
 
 #ASCII can be subbed in for tokens later
@@ -19,23 +21,38 @@ class Board
   def build_board
     #construct the board, pieces
     # add to @the_board
-    #white on bottom
-    Pawn.new(0,1,white)
-    Pawn.new(1,1,white)
-    Pawn.new(2,1,white)
-    Pawn.new(3,1,white)
-    Pawn.new(4,1,white)
-    Pawn.new(5,1,white)
-    Pawn.new(6,1,white)
-    Pawn.new(7,1,white)
-    Rook.new(0,0,white)
-    Knight.new(1,0,white)
-    Bishop.new(2,0,white)
-    Queen.new(3,0,white)
-    King.new(4,0,white)
-    Bishop.new(5,0,white)
-    Kight.new(6,0,white)
-    Rook.new(7,0,white)
+    @the_board << Pawn.new(0,1,white)
+    @the_board << Pawn.new(1,1,white)
+    @the_board << Pawn.new(2,1,white)
+    @the_board << Pawn.new(3,1,white)
+    @the_board << Pawn.new(4,1,white)
+    @the_board << Pawn.new(5,1,white)
+    @the_board << Pawn.new(6,1,white)
+    @the_board << Pawn.new(7,1,white)
+    @the_board << Rook.new(0,0,white)
+    @the_board << Knight.new(1,0,white)
+    @the_board << Bishop.new(2,0,white)
+    @the_board << Queen.new(3,0,white)
+    @the_board << King.new(4,0,white)
+    @the_board << Bishop.new(5,0,white)
+    @the_board << Kight.new(6,0,white)
+    @the_board << Rook.new(7,0,white)
+    @the_board << Pawn.new(0,6,black)
+    @the_board << Pawn.new(1,6,black)
+    @the_board << Pawn.new(2,6,black)
+    @the_board << Pawn.new(3,6,black)
+    @the_board << Pawn.new(4,6,black)
+    @the_board << Pawn.new(5,6,black)
+    @the_board << Pawn.new(6,6,black)
+    @the_board << Pawn.new(7,6,black)
+    @the_board << Rook.new(0,7,black)
+    @the_board << Knight.new(1,7,black)
+    @the_board << Bishop.new(2,7,black)
+    @the_board << Queen.new(3,7,black)
+    @the_board << King.new(4,7,black)
+    @the_board << Bishop.new(5,7,black)
+    @the_board << Kight.new(6,7,black)
+    @the_board << Rook.new(7,7,black)
   end
 
   def print_board
