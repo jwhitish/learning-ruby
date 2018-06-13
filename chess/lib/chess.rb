@@ -21,56 +21,56 @@ class Board
   def build_board
     #construct the board, pieces
     # add to @the_board
-    @the_board << Pawn.new(0,1,white)
-    @the_board << Pawn.new(1,1,white)
-    @the_board << Pawn.new(2,1,white)
-    @the_board << Pawn.new(3,1,white)
-    @the_board << Pawn.new(4,1,white)
-    @the_board << Pawn.new(5,1,white)
-    @the_board << Pawn.new(6,1,white)
-    @the_board << Pawn.new(7,1,white)
-    @the_board << Rook.new(0,0,white)
-    @the_board << Knight.new(1,0,white)
-    @the_board << Bishop.new(2,0,white)
-    @the_board << Queen.new(3,0,white)
-    @the_board << King.new(4,0,white)
-    @the_board << Bishop.new(5,0,white)
-    @the_board << Kight.new(6,0,white)
-    @the_board << Rook.new(7,0,white)
-    @the_board << Pawn.new(0,6,black)
-    @the_board << Pawn.new(1,6,black)
-    @the_board << Pawn.new(2,6,black)
-    @the_board << Pawn.new(3,6,black)
-    @the_board << Pawn.new(4,6,black)
-    @the_board << Pawn.new(5,6,black)
-    @the_board << Pawn.new(6,6,black)
-    @the_board << Pawn.new(7,6,black)
-    @the_board << Rook.new(0,7,black)
-    @the_board << Knight.new(1,7,black)
-    @the_board << Bishop.new(2,7,black)
-    @the_board << Queen.new(3,7,black)
-    @the_board << King.new(4,7,black)
-    @the_board << Bishop.new(5,7,black)
-    @the_board << Kight.new(6,7,black)
-    @the_board << Rook.new(7,7,black)
+    @the_board[0][1] = Pawn.new(0,1,white)
+    @the_board[1][1] = Pawn.new(1,1,white)
+    @the_board[2][1] = Pawn.new(2,1,white)
+    @the_board[3][1] = Pawn.new(3,1,white)
+    @the_board[4][1] = Pawn.new(4,1,white)
+    @the_board[5][1] = Pawn.new(5,1,white)
+    @the_board[6][1] = Pawn.new(6,1,white)
+    @the_board[7][1] = Pawn.new(7,1,white)
+    @the_board[0][0] = Rook.new(0,0,white)
+    @the_board[1][0] = Knight.new(1,0,white)
+    @the_board[2][0] = Bishop.new(2,0,white)
+    @the_board[3][0] = Queen.new(3,0,white)
+    @the_board[4][0] = King.new(4,0,white)
+    @the_board[5][0] = Bishop.new(5,0,white)
+    @the_board[6][0] = Kight.new(6,0,white)
+    @the_board[7][0] = Rook.new(7,0,white)
+    @the_board[0][6] = Pawn.new(0,6,black)
+    @the_board[1][6] = Pawn.new(1,6,black)
+    @the_board[2][6] = Pawn.new(2,6,black)
+    @the_board[3][6] = Pawn.new(3,6,black)
+    @the_board[4][6] = Pawn.new(4,6,black)
+    @the_board[5][6] = Pawn.new(5,6,black)
+    @the_board[6][6] = Pawn.new(6,6,black)
+    @the_board[7][6] = Pawn.new(7,6,black)
+    @the_board[0][7] = Rook.new(0,7,black)
+    @the_board[1][7] = Knight.new(1,7,black)
+    @the_board[2][7] = Bishop.new(2,7,black)
+    @the_board[3][7] = Queen.new(3,7,black)
+    @the_board[4][7] = King.new(4,7,black)
+    @the_board[5][7] = Bishop.new(5,7,black)
+    @the_board[6][7] = Kight.new(6,7,black)
+    @the_board[7][7] = Rook.new(7,7,black)
   end
 
   def print_board
-    puts "8| " + @the_board[0][0] + " | " + @the_board[0][1] + " | " + @the_board[0][2] + " | " + @the_board[0][3] + " | " + @the_board[0][4] + " | " + @the_board[0][5] + " | " + @the_board[0][6] + " | " + @the_board[0][7] + " |"
+    puts "8| " + @the_board[0][0].token + " | " + @the_board[0][1].token + " | " + @the_board[0][2].token + " | " + @the_board[0][3].token + " | " + @the_board[0][4].token + " | " + @the_board[0][5].token + " | " + @the_board[0][6].token + " | " + @the_board[0][7].token + " |"
     puts "  --- --- --- --- --- --- --- --- "
-    puts "7| " + @the_board[1][0] + " | " + @the_board[1][1] + " | " + @the_board[1][2] + " | " + @the_board[1][3] + " | " + @the_board[1][4] + " | " + @the_board[1][5] + " | " + @the_board[1][6] + " | " + @the_board[1][7] + " |"
+    puts "7| " + @the_board[1][0].token + " | " + @the_board[1][1].token + " | " + @the_board[1][2].token + " | " + @the_board[1][3].token + " | " + @the_board[1][4].token + " | " + @the_board[1][5].token + " | " + @the_board[1][6].token + " | " + @the_board[1][7].token + " |"
     puts "  --- --- --- --- --- --- --- --- "
-    puts "6| " + @the_board[2][0] + " | " + @the_board[2][1] + " | " + @the_board[2][2] + " | " + @the_board[2][3] + " | " + @the_board[2][4] + " | " + @the_board[2][5] + " | " + @the_board[2][6] + " | " + @the_board[2][7] + " |"
+    puts "6| " + @the_board[2][0].token + " | " + @the_board[2][1].token + " | " + @the_board[2][2].token + " | " + @the_board[2][3].token + " | " + @the_board[2][4].token + " | " + @the_board[2][5].token + " | " + @the_board[2][6].token + " | " + @the_board[2][7].token + " |"
     puts "  --- --- --- --- --- --- --- --- "
-    puts "5| " + @the_board[3][0] + " | " + @the_board[3][1] + " | " + @the_board[3][2] + " | " + @the_board[3][3] + " | " + @the_board[3][4] + " | " + @the_board[3][5] + " | " + @the_board[3][6] + " | " + @the_board[3][7] + " |"
+    puts "5| " + @the_board[3][0].token + " | " + @the_board[3][1].token + " | " + @the_board[3][2].token + " | " + @the_board[3][3].token + " | " + @the_board[3][4].token + " | " + @the_board[3][5].token + " | " + @the_board[3][6].token + " | " + @the_board[3][7].token + " |"
     puts "  --- --- --- --- --- --- --- --- "
-    puts "4| " + @the_board[4][0] + " | " + @the_board[4][1] + " | " + @the_board[4][2] + " | " + @the_board[4][3] + " | " + @the_board[4][4] + " | " + @the_board[4][5] + " | " + @the_board[4][6] + " | " + @the_board[4][7] + " |"
+    puts "4| " + @the_board[4][0].token + " | " + @the_board[4][1].token + " | " + @the_board[4][2].token + " | " + @the_board[4][3].token + " | " + @the_board[4][4].token + " | " + @the_board[4][5].token + " | " + @the_board[4][6].token + " | " + @the_board[4][7].token + " |"
     puts "  --- --- --- --- --- --- --- --- "
-    puts "3| " + @the_board[5][0] + " | " + @the_board[5][1] + " | " + @the_board[5][2] + " | " + @the_board[5][3] + " | " + @the_board[5][4] + " | " + @the_board[5][5] + " | " + @the_board[5][6] + " | " + @the_board[5][7] + " |"
+    puts "3| " + @the_board[5][0].token + " | " + @the_board[5][1].token + " | " + @the_board[5][2].token + " | " + @the_board[5][3].token + " | " + @the_board[5][4].token + " | " + @the_board[5][5].token + " | " + @the_board[5][6].token + " | " + @the_board[5][7].token + " |"
     puts "  --- --- --- --- --- --- --- --- "
-    puts "2| " + @the_board[6][0] + " | " + @the_board[6][1] + " | " + @the_board[6][2] + " | " + @the_board[6][3] + " | " + @the_board[6][4] + " | " + @the_board[6][5] + " | " + @the_board[6][6] + " | " + @the_board[6][7] + " |"
+    puts "2| " + @the_board[6][0].token + " | " + @the_board[6][1].token + " | " + @the_board[6][2].token + " | " + @the_board[6][3].token + " | " + @the_board[6][4].token + " | " + @the_board[6][5].token + " | " + @the_board[6][6].token + " | " + @the_board[6][7].token + " |"
     puts "  --- --- --- --- --- --- --- --- "
-    puts "1| " + @the_board[7][0] + " | " + @the_board[7][1] + " | " + @the_board[7][2] + " | " + @the_board[7][3] + " | " + @the_board[7][4] + " | " + @the_board[7][5] + " | " + @the_board[7][6] + " | " + @the_board[7][7] + " |"
+    puts "1| " + @the_board[7][0].token + " | " + @the_board[7][1].token + " | " + @the_board[7][2].token + " | " + @the_board[7][3].token + " | " + @the_board[7][4].token + " | " + @the_board[7][5].token + " | " + @the_board[7][6].token + " | " + @the_board[7][7].token + " |"
     puts "  --- --- --- --- --- --- --- --- "
     puts "   a   b   c   d   e   f   g   h\n\n"
   end
