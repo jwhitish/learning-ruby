@@ -122,11 +122,19 @@ class Board
       move = prompt("#{turn_color}'s move: ").to_s
       non_coord_entry(move)
       translate_coords(move)
-      #Validate selected piece is the players to move, or that it exists at all
+      #check that selected piece exists
+      #Validate selected piece is the players to move
+      players_piece?
       #Validate the move, check its legal
       #Commit, update @the_board and piece coords
       @turn_count += 1
     end
+  end
+
+  def players_piece?
+    #check piece color
+    #match to current turn % 2
+    #return true/false
   end
 
   def non_coord_entry(move) #done
@@ -149,6 +157,7 @@ class Board
 
   def end_game?
     #check for checkmate, stalemate
+    return False
   end
 
   def new_game #done
