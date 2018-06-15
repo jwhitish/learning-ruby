@@ -56,6 +56,7 @@ class Board
   end
 
   def print_board
+    # add a rescue clause that prints two spaces in the event of a nil value
     puts "8| " + @the_board[0][0].token + " | " + @the_board[0][1].token + " | " + @the_board[0][2].token + " | " + @the_board[0][3].token + " | " + @the_board[0][4].token + " | " + @the_board[0][5].token + " | " + @the_board[0][6].token + " | " + @the_board[0][7].token + " |"
     puts "  --- --- --- --- --- --- --- --- "
     puts "7| " + @the_board[1][0].token + " | " + @the_board[1][1].token + " | " + @the_board[1][2].token + " | " + @the_board[1][3].token + " | " + @the_board[1][4].token + " | " + @the_board[1][5].token + " | " + @the_board[1][6].token + " | " + @the_board[1][7].token + " |"
@@ -111,8 +112,8 @@ class Board
     y1 = input[1].to_i - 1
     x2 = cypher_hash[input[2]]
     y2 = input[3].to_i - 1
-    origin = @the_board[x1][y1]
-    target = @the_board[x2][y2]
+    @origin = @the_board[x1][y1]
+    @target = @the_board[x2][y2]
   end
 
   def play_game
@@ -122,12 +123,18 @@ class Board
       move = prompt("#{turn_color}'s move: ").to_s
       non_coord_entry(move)
       translate_coords(move)
-      #check that selected piece exists
-      #Validate selected piece is the players to move
-      players_piece?
-      #Validate the move, check its legal
-      #Commit, update @the_board and piece coords
-      @turn_count += 1
+      if @origin == nil #check that selected piece exists
+        puts "Piece does not exist."
+      else
+        if @origin.color != @turn_color #validate color of piece
+          puts "Piece is not yours to move."
+        else
+          players_piece?
+          #Validate the move, check its legal
+          #Commit, update @the_board and piece coords
+          @turn_count += 1
+        end #if color
+      end #if nil
     end
   end
 
